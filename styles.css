@@ -24,3 +24,13 @@ body {
 	justify-content: center;
 	padding: 0 15px;
 }
+
+/* Calculator container */
+.container {
+	height: 400px;
+	width: 350px;
+	min-width: 280px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 2px 4px 10px 2px rgba(100, 100, 100, 0.15);
+}
