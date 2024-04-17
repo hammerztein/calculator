@@ -22,7 +22,6 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0 15px;
 }
 
 /* Calculator container */
@@ -39,6 +38,7 @@ body {
 /* Calculator display */
 .display {
 	padding: 20px;
+	height: 100px;
 	text-align: right;
 	background-color: #eeee;
 }
@@ -55,4 +55,22 @@ body {
 	font-size: 14px;
 	height: 16px;
 	color: #777;
+}
+
+/* Buttons */
+.buttons {
+	display: flex;
+	justify-content: center;
+	gap: 1px;
+	flex-wrap: wrap;
+	height: 300px;
+}
+
+.btn {
+	flex: 1 86px;
+	background-color: #ddd;
+}
+
+.btn.big {
+	flex: 2 260px;
 }
