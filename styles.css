@@ -69,8 +69,40 @@ body {
 .btn {
 	flex: 1 86px;
 	background-color: #ddd;
+	transition: all 0.2s ease;
+	font-size: 20px;
 }
 
 .btn.big {
 	flex: 2 260px;
+}
+
+.btn:hover {
+	transform: scale(1.09);
+	box-shadow: 2px 2px 5px rgba(50, 50, 50, 0.25);
+}
+
+.btn[data-value="/"] {
+	background-color: #eecbff;
+}
+
+.btn[data-value="*"] {
+	background-color: #ffd4e5;
+}
+
+.btn[data-value="-"] {
+	background-color: #bae1ff;
+}
+
+.btn[data-value="+"] {
+	background-color: #ffdfba;
+}
+
+.btn[data-value="="] {
+	background-color: #baffc9;
+}
+
+.btn[data-value="ac"],
+.btn[data-value="del"]{
+	background-color: #e5a3a3;
 }
