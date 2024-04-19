@@ -2,7 +2,7 @@
 const buttons = document.querySelector('.buttons');
 
 // Calculator variables
-let firstOperand = '';
+let firstOperand = '0';
 let secondOperand = '';
 let operatorValue = '';
 
