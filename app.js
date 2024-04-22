@@ -43,7 +43,7 @@ function operate(num1, num2, operator) {
 		case '/':
 			if (secondNumber === 0) {
 				result = "Hey Brainiac you can't divide by zero.";
-				return;
+				return result;
 			}
 			result = divide(firstNumber, secondNumber);
 			break;
@@ -59,9 +59,9 @@ function handleButtonClick(event) {
 
 	// if button value type doesnt equal NaN
 	if (!isNaN(buttonValueType)) {
-		// Handle input as a number
+		setOperand(buttonValueType);
 	} else if (['+', '-', '*', '/'].includes(buttonValueType)) {
-		// Handle input as an arithmetic operator
+		setOperator(buttonValueType);
 	} else if (buttonValueType === '=') {
 		// Handle input as an equals operator
 	} else if (buttonValueType === 'ac') {
@@ -71,6 +71,51 @@ function handleButtonClick(event) {
 	} else if (buttonValueType === '.') {
 		// handle input as a decimal point
 	}
+}
+
+// Assign first operand
+function setOperand(operand) {
+	if (firstOperand === '0') {
+		firstOperand = operand;
+	} else {
+		firstOperand += operand;
+	}
+	updateDisplay(firstOperand);
+}
+
+// Assign operator
+function setOperator(operator) {
+	// Assing operator only if either of operands are empty
+	if (firstOperand === '' || secondOperand === '') {
+		operatorValue = operator;
+	}
+	// Handle the case where second operand it not assigned yet
+	if (secondOperand === '') {
+		secondOperand = firstOperand;
+		firstOperand = '';
+	}
+	// Handle the case where both operands are assigned and operator clicked again calls operate
+	if (firstOperand !== '' && secondOperand !== '') {
+		// Operands reversed since we hold the first value in the second one
+		secondOperand = operate(secondOperand, firstOperand, operatorValue);
+		updateDisplay(secondOperand);
+		firstOperand = '';
+		// Push clicked operator to the variable since its will be used for the next calculation
+		operatorValue = operator;
+	}
+	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
+}
+
+// Update sum display
+function updateDisplay(value) {
+	const display = document.querySelector('.sum');
+	display.textContent = value;
+}
+
+// Update history display
+function updateHistoryDisplay(value) {
+	const display = document.querySelector('.history');
+	display.textContent = value;
 }
 
 // Event listener
