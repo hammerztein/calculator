@@ -41,17 +41,15 @@ function operate(num1, num2, operator) {
 			result = multiply(firstNumber, secondNumber);
 			break;
 		case '/':
-			if (secondNumber === 0) result = "Hey Brainiac you can't divide by zero.";
+			if (secondNumber === 0) {
+				result = "Hey Brainiac you can't divide by zero.";
+				return;
+			}
 			result = divide(firstNumber, secondNumber);
 			break;
 		default:
 			result = 'Please choose correct operator!';
 	}
-
-	// Reset operators and operand
-	firstOperand = '';
-	secondOperand = '';
-	operatorValue = '';
 
 	return result;
 }
@@ -62,9 +60,8 @@ function handleButtonClick(event) {
 	// if button value type doesnt equal NaN
 	if (!isNaN(buttonValueType)) {
 		// Handle input as a number
-	} else if (['+', '-', '*', '-'].includes(buttonValueType)) {
+	} else if (['+', '-', '*', '/'].includes(buttonValueType)) {
 		// Handle input as an arithmetic operator
-		console.log('operator');
 	} else if (buttonValueType === '=') {
 		// Handle input as an equals operator
 	} else if (buttonValueType === 'ac') {
