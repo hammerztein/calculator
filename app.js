@@ -55,3 +55,26 @@ function operate(num1, num2, operator) {
 
 	return result;
 }
+
+function handleButtonClick(event) {
+	const buttonValueType = event.target.dataset.value;
+
+	// if button value type doesnt equal NaN
+	if (!isNaN(buttonValueType)) {
+		// Handle input as a number
+	} else if (['+', '-', '*', '-'].includes(buttonValueType)) {
+		// Handle input as an arithmetic operator
+		console.log('operator');
+	} else if (buttonValueType === '=') {
+		// Handle input as an equals operator
+	} else if (buttonValueType === 'ac') {
+		// Handle input as clear all
+	} else if (buttonValueType === 'del') {
+		// Handle input as delete last input
+	} else if (buttonValueType === '.') {
+		// handle input as a decimal point
+	}
+}
+
+// Event listener
+buttons.addEventListener('click', handleButtonClick);
