@@ -43,8 +43,7 @@ function operate(num1, num2, operator) {
 			break;
 		case '/':
 			if (secondNumber === 0) {
-				result = "Hey Brainiac you can't divide by zero.";
-				return result;
+				return 'Error';
 			}
 			result = divide(firstNumber, secondNumber);
 			break;
@@ -64,7 +63,7 @@ function handleButtonClick(event) {
 	} else if (['+', '-', '*', '/'].includes(buttonValueType)) {
 		setOperator(buttonValueType);
 	} else if (buttonValueType === '=') {
-		// Handle input as an equals operator
+		evaluate();
 	} else if (buttonValueType === 'ac') {
 		clearAll();
 	} else if (buttonValueType === 'del') {
@@ -101,16 +100,34 @@ function setOperator(operator) {
 		secondOperand = operate(secondOperand, firstOperand, operatorValue);
 		updateDisplay(secondOperand);
 		firstOperand = '';
-		// Handle error while performing math operations
-		if (isNaN(secondOperand)) {
-			updateHistoryDisplay();
-			disableButtons();
-			return;
-		}
-		// Push clicked operator to the variable since its will be used for the next calculation
+		if (checkEvaluationResult(secondOperand)) return;
+		// Push clicked operator to the variable to "remember" for next operation
 		operatorValue = operator;
 	}
 	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
+}
+
+// Evalute
+function evaluate() {
+	let sum;
+	if (secondOperand !== '') {
+		sum = operate(secondOperand, firstOperand, operatorValue);
+		if (checkEvaluationResult(sum)) return;
+		updateDisplay(sum);
+		updateHistoryDisplay(`${secondOperand} ${operatorValue} ${firstOperand} =`);
+	}
+}
+
+// Check if math operation returns number or not
+function checkEvaluationResult(value) {
+	if (isNaN(value)) {
+		updateHistoryDisplay();
+		updateDisplay("Hey Brainiac you can't divide by zero.");
+		disableButtons();
+		return true;
+	} else {
+		return false;
+	}
 }
 
 // Update sum display
