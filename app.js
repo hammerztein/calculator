@@ -1,5 +1,6 @@
 // HTML DOM elements
 const buttons = document.querySelector('.buttons');
+const buttonsArray = [...buttons.children];
 
 // Calculator variables
 let firstOperand = '0';
@@ -65,7 +66,7 @@ function handleButtonClick(event) {
 	} else if (buttonValueType === '=') {
 		// Handle input as an equals operator
 	} else if (buttonValueType === 'ac') {
-		// Handle input as clear all
+		clearAll();
 	} else if (buttonValueType === 'del') {
 		// Handle input as delete last input
 	} else if (buttonValueType === '.') {
@@ -102,7 +103,7 @@ function setOperator(operator) {
 		firstOperand = '';
 		// Handle error while performing math operations
 		if (isNaN(secondOperand)) {
-			updateHistoryDisplay('');
+			updateHistoryDisplay();
 			disableButtons();
 			return;
 		}
@@ -119,16 +120,37 @@ function updateDisplay(value) {
 }
 
 // Update history display
-function updateHistoryDisplay(value) {
+function updateHistoryDisplay(value = '') {
 	const display = document.querySelector('.history');
 	display.textContent = value;
 }
 
 // Disable all buttons except AC
 function disableButtons() {
-	const filteredButtons = [...buttons.children]
-		.filter((button) => button.dataset.value !== 'ac')
-		.forEach((button) => button.classList.add('disabled'));
+	buttonsArray.forEach((button) => {
+		if (button.dataset.value !== 'ac') {
+			button.classList.add('disabled');
+		}
+	});
+}
+
+// Enable all buttons
+function enableButtons() {
+	buttonsArray.forEach((button) => {
+		if (button.classList.contains('disabled')) {
+			button.classList.remove('disabled');
+		}
+	});
+}
+
+// Clear all
+function clearAll() {
+	firstOperand = '0';
+	secondOperand = '';
+	operatorValue = '';
+	updateDisplay(firstOperand);
+	updateHistoryDisplay();
+	enableButtons();
 }
 
 // Event listener
