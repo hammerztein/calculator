@@ -100,6 +100,12 @@ function setOperator(operator) {
 		secondOperand = operate(secondOperand, firstOperand, operatorValue);
 		updateDisplay(secondOperand);
 		firstOperand = '';
+		// Handle error while performing math operations
+		if (isNaN(secondOperand)) {
+			updateHistoryDisplay('');
+			disableButtons();
+			return;
+		}
 		// Push clicked operator to the variable since its will be used for the next calculation
 		operatorValue = operator;
 	}
@@ -116,6 +122,13 @@ function updateDisplay(value) {
 function updateHistoryDisplay(value) {
 	const display = document.querySelector('.history');
 	display.textContent = value;
+}
+
+// Disable all buttons except AC
+function disableButtons() {
+	const filteredButtons = [...buttons.children]
+		.filter((button) => button.dataset.value !== 'ac')
+		.forEach((button) => button.classList.add('disabled'));
 }
 
 // Event listener
