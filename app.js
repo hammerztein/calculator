@@ -67,7 +67,7 @@ function handleButtonClick(event) {
 	} else if (buttonValueType === 'ac') {
 		clearAll();
 	} else if (buttonValueType === 'del') {
-		// Handle input as delete last input
+		deleteLastNumber();
 	} else if (buttonValueType === '.') {
 		// handle input as a decimal point
 	}
@@ -97,9 +97,9 @@ function setOperator(operator) {
 	// Handle the case where both operands are assigned and operator clicked again calls operate
 	if (firstOperand !== '' && secondOperand !== '') {
 		evaluate();
-
 		// Push clicked operator to the variable to "remember" for next operation
 		operatorValue = operator;
+		return;
 	}
 	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
 }
@@ -168,6 +168,27 @@ function clearAll() {
 	updateDisplay(firstOperand);
 	updateHistoryDisplay();
 	enableButtons();
+}
+
+// Delete last number
+function deleteLastNumber() {
+	// Both conditions return true only if operate has return a value
+	if (firstOperand === '' && operatorValue !== '') {
+		// Clear out history display
+		updateHistoryDisplay('');
+		return;
+	}
+	// Default value of first operand returns same value
+	if (firstOperand === '0') return firstOperand;
+	// Single digit returns default value
+	if (firstOperand.length === 1) {
+		firstOperand = '0';
+	}
+	// Slice last digit out and reassign back to variable
+	if (firstOperand.length > 1) {
+		firstOperand = firstOperand.substring(0, firstOperand.length - 1);
+	}
+	updateDisplay(firstOperand);
 }
 
 // Event listener
