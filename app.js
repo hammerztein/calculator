@@ -69,7 +69,7 @@ function handleButtonClick(event) {
 	} else if (buttonValueType === 'del') {
 		deleteLastNumber();
 	} else if (buttonValueType === '.') {
-		// handle input as a decimal point
+		addDecimalPoint();
 	}
 }
 
@@ -99,7 +99,7 @@ function setOperator(operator) {
 		evaluate();
 		// Push clicked operator to the variable to "remember" for next operation
 		operatorValue = operator;
-		return;
+		// return;
 	}
 	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
 }
@@ -110,6 +110,7 @@ function evaluate() {
 	if (secondOperand !== '') {
 		sum = operate(secondOperand, firstOperand, operatorValue);
 		if (checkEvaluationResult(sum)) return;
+		sum = roundNumber(sum);
 		updateDisplay(sum);
 		updateHistoryDisplay(`${secondOperand} ${operatorValue} ${firstOperand} =`);
 		secondOperand = sum;
@@ -189,6 +190,23 @@ function deleteLastNumber() {
 		firstOperand = firstOperand.substring(0, firstOperand.length - 1);
 	}
 	updateDisplay(firstOperand);
+}
+
+// Input deciaml point
+function addDecimalPoint() {
+	if (!firstOperand.includes('.')) {
+		firstOperand += '.';
+		updateDisplay(firstOperand);
+	}
+}
+
+// Round number to max of 4 decimal places
+function roundNumber(number) {
+	if (Number.isInteger(number)) {
+		return number;
+	} else {
+		return number.toFixed(4);
+	}
 }
 
 // Event listener
