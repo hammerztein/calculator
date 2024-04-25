@@ -108,6 +108,8 @@ function setOperator(operator) {
 
 // Evalute
 function evaluate() {
+	// Cancel out if user clicks equal on empty first operand
+	if (firstOperand === '') return;
 	let sum;
 	if (secondOperand !== '') {
 		sum = operate(secondOperand, firstOperand, operatorValue);
