@@ -75,6 +75,8 @@ function handleButtonClick(event) {
 
 // Assign first operand
 function setOperand(operand) {
+	// Set limit to how long can first operand be
+	if (firstOperand.length >= 16) return;
 	if (firstOperand === '0') {
 		firstOperand = operand;
 	} else {
