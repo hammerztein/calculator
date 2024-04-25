@@ -96,11 +96,8 @@ function setOperator(operator) {
 	}
 	// Handle the case where both operands are assigned and operator clicked again calls operate
 	if (firstOperand !== '' && secondOperand !== '') {
-		// Operands reversed since we hold the first value in the second one
-		secondOperand = operate(secondOperand, firstOperand, operatorValue);
-		updateDisplay(secondOperand);
-		firstOperand = '';
-		if (checkEvaluationResult(secondOperand)) return;
+		evaluate();
+
 		// Push clicked operator to the variable to "remember" for next operation
 		operatorValue = operator;
 	}
@@ -115,6 +112,9 @@ function evaluate() {
 		if (checkEvaluationResult(sum)) return;
 		updateDisplay(sum);
 		updateHistoryDisplay(`${secondOperand} ${operatorValue} ${firstOperand} =`);
+		secondOperand = sum;
+		// Clear first operand
+		firstOperand = '';
 	}
 }
 
