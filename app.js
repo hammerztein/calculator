@@ -198,8 +198,12 @@ function deleteLastNumber() {
 
 // Input deciaml point
 function addDecimalPoint() {
-	if (!firstOperand.includes('.')) {
+	if (!firstOperand.includes('.') && firstOperand !== '') {
 		firstOperand += '.';
+		updateDisplay(firstOperand);
+	}
+	if (firstOperand === '' && !firstOperand.includes('.')) {
+		firstOperand = '0.';
 		updateDisplay(firstOperand);
 	}
 }
