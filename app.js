@@ -7,7 +7,7 @@ let firstOperand = '0';
 let secondOperand = '';
 let operatorValue = '';
 
-// Math operator funcionts
+// Math operator functions
 function add(num1, num2) {
 	return num1 + num2;
 }
@@ -29,7 +29,6 @@ function operate(num1, num2, operator) {
 	const firstNumber = +num1;
 	const secondNumber = +num2;
 	let result = 0;
-	// TODO make sure that numbers are not empty
 
 	switch (operator) {
 		case '+':
@@ -57,7 +56,6 @@ function operate(num1, num2, operator) {
 function handleButtonClick(event) {
 	const buttonValueType = event.target.dataset.value;
 
-	// if button value type doesnt equal NaN
 	if (!isNaN(buttonValueType)) {
 		setOperand(buttonValueType);
 	} else if (['+', '-', '*', '/'].includes(buttonValueType)) {
@@ -96,12 +94,14 @@ function setOperator(operator) {
 		secondOperand = firstOperand;
 		firstOperand = '';
 	}
-	// Handle the case where both operands are assigned and operator clicked again calls operate
+	// Handle the case where both operands are assigned and operator clicked again
 	if (firstOperand !== '' && secondOperand !== '') {
-		evaluate();
-		// Push clicked operator to the variable to "remember" for next operation
-		operatorValue = operator;
-		// return;
+		// If errors exists in evaluations process cancel history display update
+		if (evaluate()) {
+			operatorValue = operator;
+		} else {
+			return;
+		}
 	}
 	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
 }
@@ -109,17 +109,19 @@ function setOperator(operator) {
 // Evalute
 function evaluate() {
 	// Cancel out if user clicks equal on empty first operand
-	if (firstOperand === '') return;
+	if (firstOperand === '') return false;
 	let sum;
+	// If second operand it not empty call operate
 	if (secondOperand !== '') {
 		sum = operate(secondOperand, firstOperand, operatorValue);
-		if (checkEvaluationResult(sum)) return;
+		// If sum error return
+		if (checkEvaluationResult(sum)) return false;
 		sum = roundNumber(sum);
 		updateDisplay(sum);
 		updateHistoryDisplay(`${secondOperand} ${operatorValue} ${firstOperand} =`);
 		secondOperand = sum;
-		// Clear first operand
 		firstOperand = '';
+		return true;
 	}
 }
 
@@ -213,7 +215,7 @@ function roundNumber(number) {
 	if (Number.isInteger(number)) {
 		return number;
 	} else {
-		return number.toFixed(4);
+		return parseFloat(number.toFixed(4));
 	}
 }
 
