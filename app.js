@@ -85,7 +85,7 @@ function setOperand(operand) {
 
 // Assign operator
 function setOperator(operator) {
-	// Assing operator only if either of operands are empty
+	// Assign operator only if either of operands are empty
 	if (firstOperand === '' || secondOperand === '') {
 		operatorValue = operator;
 	}
@@ -106,7 +106,7 @@ function setOperator(operator) {
 	updateHistoryDisplay(`${secondOperand} ${operatorValue}`);
 }
 
-// Evalute
+// Evaluate
 function evaluate() {
 	// Cancel out if user clicks equal on empty first operand
 	if (firstOperand === '') return false;
@@ -198,7 +198,7 @@ function deleteLastNumber() {
 	updateDisplay(firstOperand);
 }
 
-// Input deciaml point
+// Input decimal point
 function addDecimalPoint() {
 	if (!firstOperand.includes('.') && firstOperand !== '') {
 		firstOperand += '.';
