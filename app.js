@@ -49,25 +49,36 @@ function operate(num1, num2, operator) {
 		default:
 			result = 'Please choose correct operator!';
 	}
-
 	return result;
 }
 
 function handleButtonClick(event) {
-	const buttonValueType = event.target.dataset.value;
-
+	// Get event type and assign value based on it
+	const buttonValueType = checkEventType(event);
 	if (!isNaN(buttonValueType)) {
 		setOperand(buttonValueType);
 	} else if (['+', '-', '*', '/'].includes(buttonValueType)) {
 		setOperator(buttonValueType);
-	} else if (buttonValueType === '=') {
+	} else if (['=', 'Enter'].includes(buttonValueType)) {
 		evaluate();
-	} else if (buttonValueType === 'ac') {
+	} else if (['ac', 'Delete'].includes(buttonValueType)) {
 		clearAll();
-	} else if (buttonValueType === 'del') {
+	} else if (['del', 'Backspace'].includes(buttonValueType)) {
 		deleteLastNumber();
-	} else if (buttonValueType === '.') {
+	} else if (['.', ','].includes(buttonValueType)) {
 		addDecimalPoint();
+	}
+}
+
+// Check for click or keyup
+function checkEventType(event) {
+	// Remove focus from the last input
+	event.target.blur();
+	// Return value based on event type
+	if (event.type === 'click') {
+		return event.target.dataset.value;
+	} else if ((event.type = 'keyup')) {
+		return event.key;
 	}
 }
 
@@ -221,3 +232,5 @@ function roundNumber(number) {
 
 // Event listener
 buttons.addEventListener('click', handleButtonClick);
+
+document.addEventListener('keyup', handleButtonClick);
