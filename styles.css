@@ -12,6 +12,12 @@ button {
 	cursor: pointer;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+	transition: all 0.2s ease;
+}
+
 html,
 body {
 	height: 100%;
@@ -111,4 +117,17 @@ body {
 .btn[data-value="ac"],
 .btn[data-value="del"]{
 	background-color: #e5a3a3;
+}
+
+footer {
+	position: fixed;
+	bottom: 45px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+}
+
+footer a:hover {
+	color: #999;
 }
