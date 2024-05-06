@@ -78,6 +78,7 @@ body {
 	background-color: #ddd;
 	transition: all 0.2s ease;
 	font-size: 20px;
+	color: #444;
 }
 
 .btn.big {
