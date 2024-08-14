@@ -12,7 +12,7 @@ Calculator should have keyboard support (with 'Backspace' for delete and 'DEL' f
 
 ## Links
 
-[Live app preview](https://hammerztein.github.io/odin-calc/)
+[Live app preview](https://hammerztein.github.io/calculator/)
 
 ## Things I Used
 
